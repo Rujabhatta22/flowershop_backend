@@ -6,6 +6,9 @@ const path = require('path')
 port =3000
 const app = express()
 const user_routes=require('./routes/users')
+const category_route = require('./routes/categories')
+const post_route = require("./routes/posts")
+const userroute=require("./routes/user")
 app.use(cors())
 
 mongoose.connect('mongodb://127.0.0.1:27017/inkspire')
@@ -37,7 +40,11 @@ app.use(express.json())
 
 
 // routes
-app.use('/users',user_routes)
+app.use('/users', user_routes)
+app.use('/users', category_route)
+app.use('/posts', post_route)
+app.use('/user', userroute)
+
 
 // error handling middleware
 // when there is value in err parameter then it gets executed
