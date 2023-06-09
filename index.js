@@ -8,7 +8,8 @@ const app = express()
 const user_routes=require('./routes/users')
 const category_route = require('./routes/categories')
 const post_route = require("./routes/posts")
-const userroute=require("./routes/user")
+const userroute = require("./routes/user")
+const multer=require("multer")
 app.use(cors())
 
 mongoose.connect('mongodb://127.0.0.1:27017/inkspire')
@@ -38,6 +39,19 @@ app.get('^/$|index(.html)?', (req, res) => {
 //express defined middleware
 app.use(express.json())
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "images");
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.name);
+    },
+});
+
+const upload = multer({ storage: storage });
+app.post("/upload", upload.single("file"), (req, res) => {
+    res.status(200).json("File has been uploaded");
+} )
 
 // routes
 app.use('/users', user_routes)
