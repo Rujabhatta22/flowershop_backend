@@ -55,7 +55,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
 // routes
 app.use('/users', user_routes)
-app.use('/users', category_route)
+app.use('/categories', category_route)
 app.use('/posts', post_route)
 app.use('/user', userroute)
 
