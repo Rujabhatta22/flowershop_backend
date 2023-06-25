@@ -1,16 +1,28 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
+const upload=require('../middleware/upload')
 
 //CREATE POST
-router.post("/", async (req, res) => {
-  const newPost = new Post(req.body);
-  try {
-    const savedPost = await newPost.save();
-    res.status(200).json(savedPost);
-  } catch (err) {
-    res.status(500).json(err);
+router.post("/", upload.single('photo'), (req,res,next) => {
+  console.log(req.body)
+  let newPost = {
+    username: req.body.username,
+    title: req.body.title,
+    desc: req.body.desc
   }
+  const file = req.file;
+  if (file) {
+    const filename = req.file.filename;
+    newPost.photo = '/images/postimages/' + filename;
+  }
+  Post.create(newPost).then(
+    post=> {
+      res.status(201).json({
+        data:post
+      })
+    }
+  ).catch(next)
 });
 
 //UPDATE POST

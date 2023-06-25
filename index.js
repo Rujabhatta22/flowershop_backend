@@ -26,10 +26,10 @@ app.use((req, res, next) => {
     next()
 })
 
-// app.use(
-//     "/images",
-//     express.static(path.join(__dirname, "/images"))
-// );
+app.use(
+    "/images",
+    express.static(path.join(__dirname, "/images"))
+);
 
 // starts with(^) / or ends with($) / or is index or index.html then 
 app.get('^/$|index(.html)?', (req, res) => {
@@ -39,19 +39,19 @@ app.get('^/$|index(.html)?', (req, res) => {
 //express defined middleware
 app.use(express.json())
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "images");
-    },
-    filename: (req, file, cb) => {
-        cb(null, req.body.name);
-    },
-});
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, "images");
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, req.body.name);
+//     },
+// });
 
-const upload = multer({ storage: storage });
-app.post("/upload", upload.single("file"), (req, res) => {
-    res.status(200).json("File has been uploaded");
-} )
+// const upload = multer({ storage: storage });
+// app.post("/upload", upload.single("file"), (req, res) => {
+//     res.status(200).json("File has been uploaded");
+// } )
 
 // routes
 app.use('/users', user_routes)
