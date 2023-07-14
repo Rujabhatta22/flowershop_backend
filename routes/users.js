@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const usercon=require("../controllers/userCtrl")
 
 //REGISTER
 router.post("/register", async (req, res) => {
@@ -35,6 +36,8 @@ router.post("/login", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.get("/",usercon.getAllUsersController)
 
 
 module.exports = router;
