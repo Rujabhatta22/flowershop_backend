@@ -19,7 +19,6 @@ const PostSchema = new mongoose.Schema(
       type: String,
  
     },
-    
     categories: {
       type: Array,
       required: false,

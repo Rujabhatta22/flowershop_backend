@@ -12,7 +12,7 @@ const userroute = require("./routes/user")
 const multer=require("multer")
 app.use(cors())
 
-mongoose.connect('mongodb://127.0.0.1:27017/inkspire')
+mongoose.connect('mongodb://127.0.0.1:27017/flower')
     .then(() => {
         console.log('connected to mongodb server')
         app.listen(port, () => {
